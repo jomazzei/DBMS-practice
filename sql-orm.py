@@ -10,26 +10,26 @@ base = declarative_base()
 
 class Artist(base):
     __tablename__ = "artist"
-    ArtistId = Column(Integer, primary_key = True)
-    Name = Column(String)
+    artist_id = Column(Integer, primary_key = True)
+    name = Column(String)
 
 class Album(base):
     __tablename__ = "album"
-    AlbumId = Column(Integer, primary_key = True)
-    Title = Column(String)
-    ArtistId = Column(Integer, ForeignKey("Artist.ArtistId"))
+    album_id = Column(Integer, primary_key = True)
+    title = Column(String)
+    artist_id = Column(Integer, ForeignKey("artist.artist_id"))
 
 class Track(base):
     __tablename__ = "track"
-    TrackId = Column(Integer, primary_key=True)
-    Name = Column(String)
-    AlbumId = Column(Integer, ForeignKey("Album.AlbumId"))
-    MediaTypeId = Column(Integer, primary_key=False)
-    GenreId = Column(Integer, primary_key=False)
-    Composer = Column(String)
-    Milliseconds = Column(Integer, primary_key=False)
-    Bytes = Column(Integer, primary_key=False)
-    UnitPrice = Column(Float)
+    track_id = Column(Integer, primary_key=True)
+    name = Column(String)
+    album_id = Column(Integer, ForeignKey("album.album_id"))
+    media_type = Column(Integer, primary_key=False)
+    genre_id = Column(Integer, primary_key=False)
+    composer = Column(String)
+    milliseconds = Column(Integer, primary_key=False)
+    bytes = Column(Integer, primary_key=False)
+    unit_price = Column(Float)
     
 
 Session = sessionmaker(db)
@@ -40,4 +40,4 @@ base.metadata.create_all(db)
 
 artists = session.query(Artist)
 for artist in artists:
-    print(artist.ArtistId, artist.Name, sep=" | ")
+    print(artist.artist_id, artist.name, sep=" | ")
